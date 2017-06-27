@@ -24,11 +24,11 @@ To install this you try to use following steps:
 ```
 Input:
 
-![Input](https://github.com/thomassuedbroecker/node-red-contrib-ibmpush/blob/images/nodered-input-config.png)
+![Input](https://github.com/thomassuedbroecker/node-red-contrib-ibmpush/blob/master/images/nodered-input-config.png
 
 Input working with EU-GB
 
-![Working](https://github.com/thomassuedbroecker/node-red-contrib-ibmpush/blob/images/nodered-working.png)
+![Working](https://github.com/thomassuedbroecker/node-red-contrib-ibmpush/blob/master/images/nodered-working.png)
 
 node-red-contrib-ibmpush
 ========================
