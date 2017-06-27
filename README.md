@@ -1,3 +1,6 @@
+How to Install and handle nodes?
+Take a look in this video: https://www.youtube.com/watch?v=TlzqGhfdbEM&t=83s
+
 node-red-contrib-ibmpush
 ========================
 Sends push notifications to mobile devices in [Node-RED](http://nodered.org) using IBM Push Notification for Bluemix

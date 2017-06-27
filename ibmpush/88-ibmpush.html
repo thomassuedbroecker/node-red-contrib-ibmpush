@@ -14,7 +14,7 @@
   limitations under the License.
 -->
 
-<script type="text/x-red" data-template-name="ibmpush">
+<script type="text/x-red" data-template-name="ibmpush-custom">
 
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
@@ -38,6 +38,10 @@
         <div class="form-row">
             <label for="node-input-ApplicationSecret"><i class="icon-lock"></i> Secret</label>
             <input type="password" id="node-input-ApplicationSecret" placeholder="Application Secret">
+        </div>
+        <div class="form-row">
+            <label for="node-input-ApplicationRegion"><i class="icon-lock"></i> Region</label>
+            <input type="text" id="node-input-ApplicationRegion" placeholder="Application Region sample 'ng' or 'eu-gb' ">
         </div>
 
         <br/>
@@ -77,7 +81,7 @@
 
 
 
-<script type="text/x-red" data-help-name="ibmpush">
+<script type="text/x-red" data-help-name="ibmpush-custom">
     <p>Sends Push Notifications to mobile devices using IBM Push notification for Bluemix</p>
     <p><code>msg.payload</code> is used as the alert in the Notification.
     <p><b>Mobile Push Properties</b></p>
@@ -105,13 +109,14 @@
 
 
 <script type="text/javascript">
-    RED.nodes.registerType('ibmpush',{
+    RED.nodes.registerType('ibmpush-custom',{
         category: 'output',
         color:"rgb(115, 185, 221)",
         defaults: {
             name: {},
             ApplicationID: {value:"", required:false},
             //ApplicationSecret: {value:"", required:true},
+            ApplicationRegion: {value:"", required:false},
             identifiers: {value:""},
             notification: {value:"broadcast"},
             mode: {value:"SANDBOX"}
@@ -128,7 +133,7 @@
         },
         oneditprepare: function () {
 
-            $.getJSON('ibmpush/vcap/',function(data) {
+            $.getJSON('ibmpush-custom/vcap/',function(data) {
                 console.log("resp");
                 console.log(data);
                 if(data.isBound) {
@@ -151,7 +156,7 @@
 
             });
 
-            $.getJSON("ibmpush/"+this.id, function(data) {
+            $.getJSON("ibmpush-custom/"+this.id, function(data) {
 
                     if (data.hasPassword) {
                         $('#node-input-ApplicationSecret').data("v",'__PWRD__');
@@ -184,7 +189,7 @@
             if(oldPass != newPass) {
                 if (newPass == "") {
                         $.ajax({
-                            url: 'ibmpush/'+this.id,
+                            url: 'ibmpush-custom/'+this.id,
                             type: 'DELETE',
                             success: function(result) {}
                         });
@@ -194,7 +199,7 @@
                         credentials.password = newPass;
                     }
                     $.ajax({
-                        url: "ibmpush/"+this.id,
+                        url: "ibmpush-custom/"+this.id,
                         type: "POST",
                         data: credentials,
                         success: function(result) {}

@@ -23,6 +23,7 @@ var isBound = false;
 //creds
 var applicationUrl = "";
 var applicationSecret = "";
+var applicationRegion = "";
 
 if(isBluemix) {
 	var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
@@ -36,7 +37,7 @@ if(isBluemix) {
 //
 // HTTP endpoints that will be accessed from the HTML file
 //
-RED.httpAdmin.get('/ibmpush/vcap', function(req,res) {
+RED.httpAdmin.get('/ibmpush-custom/vcap', function(req,res) {
     res.json({
     	isBluemix : isBluemix,
     	isBound : isBound
@@ -44,7 +45,7 @@ RED.httpAdmin.get('/ibmpush/vcap', function(req,res) {
 });
 
 // REMINDER: routes are order dependent
-RED.httpAdmin.get('/ibmpush/:id', function(req,res) {
+RED.httpAdmin.get('/ibmpush-custom/:id', function(req,res) {
     var credentials = RED.nodes.getCredentials(req.params.id);
 
     if (credentials) {
@@ -58,12 +59,12 @@ RED.httpAdmin.get('/ibmpush/:id', function(req,res) {
     }
 });
 
-RED.httpAdmin.delete('/ibmpush/:id', function(req,res) {
+RED.httpAdmin.delete('/ibmpush-custom/:id', function(req,res) {
     RED.nodes.deleteCredentials(req.params.id);
     res.sendStatus(200);
 });
 
-RED.httpAdmin.post('/ibmpush/:id', function(req,res) {
+RED.httpAdmin.post('/ibmpush-custom/:id', function(req,res) {
     var newCreds = req.body;
     var credentials = RED.nodes.getCredentials(req.params.id) || {};
 
@@ -95,7 +96,8 @@ function IBMPushNode(n) {
 							+ "Input Bluemix Application related properties - ID and Secret.");
 			return null;
 		}
-		applicationUrl = "http://imfpush.ng.bluemix.net/imfpush/v1/apps/"+n.ApplicationID;
+		applicationRegion = n.ApplicationRegion
+		applicationUrl = "http://imfpush."+applicationRegion+".bluemix.net/imfpush/v1/apps/"+n.ApplicationID;
 		applicationSecret = credentials.password;
 	} else {
 		this.log("In Local Environment");
@@ -105,7 +107,8 @@ function IBMPushNode(n) {
 							+ "Input Bluemix Application related properties - ID and Secret.");
 			return null;
 		}
-		applicationUrl = "http://imfpush.ng.bluemix.net/imfpush/v1/apps/"+n.ApplicationID;
+		applicationRegion = n.ApplicationRegion
+		applicationUrl = "http://imfpush."+applicationRegion+".bluemix.net/imfpush/v1/apps/"+n.ApplicationID;
 		applicationSecret = credentials.password;
 	}
 
@@ -189,7 +192,7 @@ function IBMPushNode(n) {
 	});
 }
 
-RED.nodes.registerType("ibmpush", IBMPushNode);
+RED.nodes.registerType("ibmpush-custom", IBMPushNode);
 
 //util function for Mobile Push ReST calls
 
