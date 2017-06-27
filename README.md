@@ -1,5 +1,34 @@
 How to Install and handle nodes?
+=================================
 Take a look in this video: https://www.youtube.com/watch?v=TlzqGhfdbEM&t=83s
+
+I made some changes in this node, because I want to you it on my raspberry pi and using the push in a other region.
+
+To install this you try to use following steps:
+```
+  pi@raspberrypi:~/node-red-contrib-ibmpush-custom $ sudo npm link
+  pi@raspberrypi:~/node-red-contrib-ibmpush-custom $ ls
+  CLA.md  ibmpush  LICENSE  node_modules  package.json  README.md
+  pi@raspberrypi:/ $ cd /usr/lib/node_modules
+  pi@raspberrypi:/usr/lib/node_modules $ ls
+  node-red  node-red-contrib-ibmpush-custom  npm
+  pi@raspberrypi:~ $ cd /.node-red
+  pi@raspberrypi:~/.node-red $ ls
+  flows_raspberrypi_cred.json  lib           package.json
+  flows_raspberrypi.json       node_modules  settings.js
+  pi@raspberrypi:~/.node-red $ npm link node-red-contrib-ibmpush-custom
+/home/pi/.node-red/node_modules/node-red-contrib-ibmpush-custom -> /usr/lib/node_modules/node-red-contrib-ibmpush-custom -> /home/pi/node-red-contrib-ibmpush-custom
+  pi@raspberrypi:~/.node-red $ sudo reboot
+  Connection to 192.168.178.58 closed by remote host.
+  Connection to 192.168.178.58 closed.
+```
+Input:
+
+![Input](https://github.com/thomassuedbroecker/node-red-contrib-ibmpush/blob/images/nodered-input-config.png)
+
+Input working with EU-GB
+
+![Working](https://github.com/thomassuedbroecker/node-red-contrib-ibmpush/blob/images/nodered-working.png)
 
 node-red-contrib-ibmpush
 ========================
