@@ -24,7 +24,7 @@ To install this you try to use following steps:
 ```
 Input:
 
-![Input](https://github.com/thomassuedbroecker/node-red-contrib-ibmpush/blob/master/images/nodered-input-config.png
+![Input](https://github.com/thomassuedbroecker/node-red-contrib-ibmpush/blob/master/images/nodered-input-config.png)
 
 Input working with EU-GB
 
