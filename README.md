@@ -11,7 +11,7 @@ npm install node-red-contrib-ibmpush
 
 Usage
 -----
-	
+
 `msg.payload` is used as the alert in the Notification.
 
 **Mobile Push Properties**
@@ -30,8 +30,8 @@ Type of notification to be pushed.
 - Only Android devices - Send notifications to all the registered Android devices
 - Only iOS devices - Send notifications to all the registered iOS devices
 
-*Notification Identifiers* - Used when notifications are sent *By Tags and By DeviceIds*. This can take multiple values seperated by comma(,). Example: GoldCoupons,SilverCoupons
+*Notification Identifiers* - Used when notifications are sent *By Tags and By DeviceIds*. This can take multiple values seperated by comma(,). Example: GoldCoupons,SilverCoupons. You can override this property by providing ```msg.identifiers```
 
-Visit this [link](https://new-console.ng.bluemix.net/docs/services/mobilepush/c_overview_push.html) for more information on IBM Push Notification for Bluemix
+Visit this [link](https://console.ng.bluemix.net/docs/services/mobilepush/c_overview_push.html) for more information on IBM Push Notification for Bluemix
 
 =======
