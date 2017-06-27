@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
- 
+
 <script type="text/x-red" data-template-name="ibmpush">
-   
+
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -28,7 +28,7 @@
             <option default value="SANDBOX">SANDBOX</option>
             <option value="PRODUCTION">PRODUCTION</option>
         </select>
-        
+
     </div>
     <div id="propDiv">
         <div class="form-row">
@@ -43,7 +43,7 @@
         <br/>
     </div>
     <b>Notification</b>
-    
+
     <div class="form-row">
         <label for="node-input-notification"><i class="icon-tasks"></i> Type</label>
         <select id="node-input-notification" style="margin-right:3px;">
@@ -53,16 +53,16 @@
             <option value="android">Only Android devices</option>
             <option value="ios">Only iOS devices</option>
         </select>
-        
+
     </div>
-    
+
     <div class="form-row">
         <label id="node-input-identifiersLabel" for="node-input-identifiers"><i class="icon-tag"></i> Identifiers</label>
         <input type="text" id="node-input-identifiers" placeholder="e.g: GoldCoupons,SilverCoupons">
     </div>
     <div class="form-tips">
-        <div id = "form-tipsBounded">        
-            <b>Bounded Service:</b> Select a Notification Type and <i>msg.payload</i> will be sent as a Notification <br/>         
+        <div id = "form-tipsBounded">
+            <b>Bounded Service:</b> Select a Notification Type and <i>msg.payload</i> will be sent as a Notification <br/>
             Check the info tab, to get more information about each of the fields
         </div>
         <div id = "form-tipsUnbounded">
@@ -72,7 +72,7 @@
             <b>Local Mode:</b> Node-RED is running in local mode. Provide the <i>Application ID and Secret</i><br/>
         </div>
 </div>
-    
+
 </script>
 
 
@@ -81,11 +81,11 @@
     <p>Sends Push Notifications to mobile devices using IBM Push notification for Bluemix</p>
     <p><code>msg.payload</code> is used as the alert in the Notification.
     <p><b>Mobile Push Properties</b></p>
-    <p> <b>Mode</b> Select the mode of operation for the IBM Push Notification. You can override this property by providing <code>msg.mode</code> </p> 
+    <p> <b>Mode</b> Select the mode of operation for the IBM Push Notification. You can override this property by providing <code>msg.mode</code> </p>
 
-    <p> <b>Application ID and Secret</b> mandatory only when used in <i>non-Bluemix environment</i> and must be copied from the IBM Push Notification service in Bluemix. 
-    If used in <i>Bluemix</i>, these properties will be automatically read.</p> 
-    
+    <p> <b>Application ID and Secret</b> mandatory only when used in <i>non-Bluemix environment</i> and must be copied from the IBM Push Notification service in Bluemix.
+    If used in <i>Bluemix</i>, these properties will be automatically read.</p>
+
     <p><b>Notification Type</b> Type of notification to be pushed.
         <ul>
             <li><i>Broadcast</i> - Send notifications to all the registered devices</li>
@@ -97,9 +97,9 @@
         </ul>
     </p>
 
-    <p><b>Notification Identifiers</b> Used when notifications are sent <i>By Tags and By DeviceIds</i>. This can take multiple values seperated by comma(,). Example: GoldCoupons,SilverCoupons</p>
+    <p><b>Notification Identifiers</b> Used when notifications are sent <i>By Tags and By DeviceIds</i>. This can take multiple values seperated by comma(,). Example: GoldCoupons,SilverCoupons. You can override this property by providing <code>msg.identifiers</code></p>
 
-    <p> Visit this <a target="_blank" href="https://new-console.ng.bluemix.net/docs/services/mobilepush/c_overview_push.html">link</a> for more information on IBM Push Notification for Bluemix
+    <p> Visit this <a target="_blank" href="https://console.ng.bluemix.net/docs/services/mobilepush/c_overview_push.html">link</a> for more information on IBM Push Notification for Bluemix
 
 </script>
 
@@ -107,8 +107,8 @@
 <script type="text/javascript">
     RED.nodes.registerType('ibmpush',{
         category: 'output',
-        color:"rgb(115, 185, 221)",     
-        defaults: {   
+        color:"rgb(115, 185, 221)",
+        defaults: {
             name: {},
             ApplicationID: {value:"", required:false},
             //ApplicationSecret: {value:"", required:true},
@@ -116,9 +116,9 @@
             notification: {value:"broadcast"},
             mode: {value:"SANDBOX"}
         },
-        inputs:1,               
+        inputs:1,
         outputs:0,
-        icon: "ibmpush-icon.png", 
+        icon: "ibmpush-icon.png",
         align: "right",
         label: function() {
             return this.name ||"IBM Push";
@@ -132,7 +132,7 @@
                 console.log("resp");
                 console.log(data);
                 if(data.isBound) {
-                    
+
                     $("#propDiv").hide();
                     //tooltip
                     $("#form-tipsUnbounded").hide();
@@ -148,11 +148,11 @@
                     $("#form-tipsBounded").hide();
                     $("#form-tipsUnbounded").hide();
                 }
-                
+
             });
-            
+
             $.getJSON("ibmpush/"+this.id, function(data) {
-                    
+
                     if (data.hasPassword) {
                         $('#node-input-ApplicationSecret').data("v",'__PWRD__');
                         $("#node-input-ApplicationSecret").val("__PWRD__");
@@ -175,12 +175,12 @@
             });
 
         },
-        
+
         oneditsave: function() {
-            
+
             var oldPass = $('#node-input-ApplicationSecret').data("v");
             var newPass = $("#node-input-ApplicationSecret").val();
-            
+
             if(oldPass != newPass) {
                 if (newPass == "") {
                         $.ajax({
@@ -205,5 +205,5 @@
         }
     });
 
-    
+
 </script>
